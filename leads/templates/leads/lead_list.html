@@ -8,12 +8,12 @@
 </head>
 <body>
     <div class="max-w-7xl mx-auto">
-       <h1>Next Page</h1>
+       <h1>Leads</h1>
        <ul>
-           {% for lead in leads %}
-           <li>{{lead}}</li>
-           {% endfor %}
-       </ul>
+        {% for lead in leads %}
+            <li><a href="/leads/{{ lead.pk }}/">{{lead.first_name}} Age: {{lead.age}}</a></li>
+        {% endfor %}
+    </ul>
     </div>
 
 </body>
