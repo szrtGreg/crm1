@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div class="max-w-7xl mx-auto">
-       <h1>Leads</h1>
-       <hr/>
-       <p><a href="{% url 'lead-create' %}">Create</a></p>
 
-       <ul>
-        {% for lead in leads %}
-            <li><a href="{% url 'lead-detail' lead.pk %}">{{lead.first_name}} {{lead.last_name}}</a></li>
-        {% endfor %}
-    </ul>
-    </div>
+{% extends 'base.html' %}
+{% block content %}
 
-</body>
-</html>
+
+<h1>Leads</h1>
+<hr/>
+<p><a href="{% url 'lead-create' %}">Create</a></p>
+
+<ul>
+{% for lead in leads %}
+    <li><a href="{% url 'lead-detail' lead.pk %}">{{lead.first_name}} {{lead.last_name}}</a></li>
+{% endfor %}
+</ul>
+
+
+{% endblock content %}

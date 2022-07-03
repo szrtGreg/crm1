@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-    <a href="{% url 'lead-list' %}">Go back</a>
-    <div class="max-w-7xl mx-auto">
-       <h1>Update a {{ lead.first_name }}</h1>
-       <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-       </form>
 
-    </div>
 
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<a href="{% url 'lead-list' %}">Go back</a>
+<div class="max-w-7xl mx-auto">
+    <h1>Update a {{ lead.first_name }}</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+    </form>
+
+
+{% endblock content %}

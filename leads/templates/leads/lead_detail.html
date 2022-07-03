@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-    <a href="{% url 'lead-list' %}">Go back</a>
-    <div class="max-w-7xl mx-auto">
-       <h1>Leads Details</h1>
-       {{ lead.first_name }}
-       {{ lead.last_name}}
-       {{ lead.age}}
-       <hr>
-       <p><a href="{% url 'lead-update' lead.pk %}">Update</a></p>
-       <p><a  href="{% url 'lead-delete' lead.pk %}">Delete</a></p>
+
+{% extends 'base.html' %}
+{% block content %}
 
 
-    </div>
+<h1>Leads Details</h1>
+{{ lead.first_name }}
+{{ lead.last_name}}
+{{ lead.age}}
+<hr>
+<p><a href="{% url 'lead-update' lead.pk %}">Update</a></p>
+<p><a  href="{% url 'lead-delete' lead.pk %}">Delete</a></p>
 
-</body>
-</html>
+{% endblock content %}
