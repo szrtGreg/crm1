@@ -5,15 +5,15 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/leads">Go back</a>
+    <a href="{% url 'lead-list' %}">Go back</a>
     <div class="max-w-7xl mx-auto">
        <h1>Leads Details</h1>
        {{ lead.first_name }}
        {{ lead.last_name}}
        {{ lead.age}}
        <hr>
-       <p><a href="/leads/{{ lead.pk }}/update/">Update</a></p>
-       <p><a  href="/leads/{{ lead.pk }}/delete/">Delete</a></p>
+       <p><a href="{% url 'lead-update' lead.pk %}">Update</a></p>
+       <p><a  href="{% url 'lead-delete' lead.pk %}">Delete</a></p>
 
 
     </div>
