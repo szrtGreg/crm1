@@ -9,7 +9,7 @@
 
 <ul>
 {% for agent in agents %}
-    <li><a href="#">{{agent.user.username}}</a></li>
+    <li><a href="{% url 'agent-detail' agent.pk %}">{{agent.user.username}}</a></li>
 {% endfor %}
 </ul>
 
