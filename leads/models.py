@@ -5,7 +5,8 @@ from django.db.models.signals import post_save
 
 
 class User(AbstractUser):
-    pass
+    is_organisor = models.BooleanField(default=True)
+    is_agnet = models.BooleanField(default=False)
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
