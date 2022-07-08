@@ -5,8 +5,9 @@
 
 <h1>Leads</h1>
 <hr/>
+{% if request.user.is_organisor %}
 <p><a href="{% url 'lead-create' %}">Create</a></p>
-
+{% endif %}
 <ul>
 {% for lead in leads %}
     <li><a href="{% url 'lead-detail' lead.pk %}">{{lead.first_name}} {{lead.last_name}}</a></li>
