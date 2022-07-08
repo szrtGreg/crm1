@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1>Category list</h1>
+<hr/>
+<ul>
+    <li><a href="#">Unassigned | {{unassigned_lead_count}}</li></a>
+{% for category in category_list %}
+    <li><a href="#">{{category.name}}</a> COUNT </li>
+{% endfor %}
+</ul>
+
+
+{% endblock content %}

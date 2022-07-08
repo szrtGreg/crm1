@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.core.mail import send_mail
 from django.http import HttpResponse
-from .models import Lead, Agent
+from .models import Category, Lead, Agent
 from .forms import AssignAgentForm, LeadModelForm, CustomUserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.forms import UserCreationForm
@@ -122,3 +122,31 @@ class AssignAgentView(OrganisorAndLoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse('lead-list')
+
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    template_name = 'leads/category_list.html'
+    context_object_name = 'category_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        
+        user = self.request.user
+        if user.is_organisor:
+            qs = Lead.objects.filter(organisation = user.userprofile)
+        else:
+            qs = Lead.objects.filter(organisation = user.agent.organisation)
+
+        context.update({
+            'unassigned_lead_count': qs.filter(category__isnull=True).count()
+        })
+
+        return context
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor:
+            qs = Category.objects.filter(organisation = user.userprofile)
+        else:
+            qs = Category.objects.filter(organisation = user.agent.organisation)
+        return qs
