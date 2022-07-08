@@ -15,4 +15,9 @@
 </ul>
 
 
+{% for lead in unassigned_leads %}
+<h1>Unassigned</h1>
+    <li><a href="{% url 'lead-detail' lead.pk %}">{{lead.first_name}}</a></li>
+{% endfor %}
+
 {% endblock content %}
