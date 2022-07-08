@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 
 class User(AbstractUser):
     is_organisor = models.BooleanField(default=True)
-    is_agnet = models.BooleanField(default=False)
+    is_agent = models.BooleanField(default=False)
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -26,7 +26,9 @@ class Lead(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     age = models.IntegerField(default=0)
-    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    agent = models.ForeignKey(Agent, null=True, blank=True, on_delete=models.SET_NULL)
+    organisation = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
+
 
 
     def __str__(self):
