@@ -8,7 +8,7 @@
 <ul>
     <li><a href="#">Unassigned | {{unassigned_lead_count}}</li></a>
 {% for category in category_list %}
-    <li><a href="#">{{category.name}}</a> COUNT </li>
+    <li><a href="{% url 'category-detail' category.pk %}">{{category.name}}</a> COUNT </li>
 {% endfor %}
 </ul>
 
