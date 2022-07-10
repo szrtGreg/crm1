@@ -71,6 +71,13 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, CreateView):
         )
         return super(LeadCreateView, self).form_valid(form)
 
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(LeadCreateView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
+    
     def get_success_url(self):
         return reverse('lead-list')
 
