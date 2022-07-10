@@ -1,6 +1,6 @@
 from django import forms
 
-from leads.models import Lead, Agent
+from leads.models import Category, Lead, Agent
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth import get_user_model
 
@@ -46,3 +46,9 @@ class LeadCategoryUpdateForm(forms.ModelForm):
         fields =  (
             'category',
         )
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request')
+        category = Category.objects.filter(organisation=request.user.userprofile)
+        super(LeadCategoryUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = category

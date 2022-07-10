@@ -188,5 +188,12 @@ class LeadCategoryUpdateView(LoginRequiredMixin, UpdateView):
             qs = Lead.objects.filter(agent=user.agent)
         return qs
 
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(LeadCategoryUpdateView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
+
     def get_success_url(self):
         return reverse('lead-detail', kwargs={'pk': self.get_object().id })
