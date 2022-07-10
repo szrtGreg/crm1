@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from .models import Category, Lead, Agent
-from .forms import AssignAgentForm, LeadModelForm, CustomUserCreationForm
+from .forms import AssignAgentForm, LeadCategoryUpdateForm, LeadModelForm, CustomUserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -174,3 +174,19 @@ class CategoryDetailView(LoginRequiredMixin, DetailView):
         })
 
         return context
+
+    
+class LeadCategoryUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = LeadCategoryUpdateForm
+    template_name = 'leads/lead_category_update.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor:
+            qs = Lead.objects.filter(organisation = user.userprofile)
+        else:
+            qs = Lead.objects.filter(agent=user.agent)
+        return qs
+
+    def get_success_url(self):
+        return reverse('lead-detail', kwargs={'pk': self.get_object().id })
