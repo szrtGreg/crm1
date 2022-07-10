@@ -13,6 +13,12 @@ class LeadModelForm(forms.ModelForm):
             'age',
             'agent',
         )
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request')
+        agent = Agent.objects.filter(organisation=request.user.userprofile)
+        super(LeadModelForm, self).__init__(*args, **kwargs)
+        self.fields['agent'].queryset = agent
+
 
 class LeadForm(forms.Form):
     first_name = forms.CharField()

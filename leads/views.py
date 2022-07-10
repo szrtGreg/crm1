@@ -84,6 +84,13 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, UpdateView):
         if user.is_organisor:
             return Lead.objects.filter(organisation = user.userprofile)
 
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(LeadUpdateView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
+
     def get_success_url(self):
         return reverse('lead-list')
 
